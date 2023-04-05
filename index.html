@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 2</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Lab Redes y comunicacion de datos #2</h1>
+    </header>
+    <aside class="left">
+      <h2>Indice</h2>
+
+      <ul>
+        <li><a class="active">Descripción del Laboratorio</a></li>
+        <li><a>Conceptos</a></li>
+        <li><a>Metodología seguida para el montaje, configuración y verificación del funcionamiento</a></li>
+        <li><a>Resultados de configuración y verificación de  funcionamiento </a></li>
+        <li><a>Retos</a></li>
+        <li><a>Conclusiones</a></li>
+      </ul>
+
+      <br><br>
+
+      <p>Integrantes:<br>Carlos Conde <br>Angel Neira <br>Camilo Tarazona</p>
+    </aside>
+    <main class="content">
+
+      <h2 id="a">Descripción</h2>
+
+      <p>En esta práctica de laboratorio se pondrán a prueba ciertos conceptos de las capas de redes para la comunicación de datos más que todo en el aspecto del cableado estructurado de una topología de red y sus dispositivos para el correcto funcionamiento dependiendo del entorno de trabajo de red, a parte la diferencia respecto al anterior laboratorio de interconexión en este laboratorio se analizaran los procesos de configuración para las conexiones respectivas en una red analizando los elementos a utilizar y las verificaciones de direcciones las cuales permiten el acceso de estos dispositivos como los pc a un switch y de un switch al router el cual les proporciona la conexión a internet.
+        En esta práctica también se manejan conceptos en relación a capa 3 del modelo de red y las redes vlan, momentos de difusión con el fin de agrupar dispositivos de manera adecuada.
+        </p>
+      <hr><br>
+
+      <h2>Elementos de red usados en la simulación</h2>
+
+      <table>
+        <tr>
+          <th>Elemento</th>
+          <th>Descripción</th>
+          
+        </tr>
+        <tr>
+          <td><i class="fas fa-desktop"></i></td>
+          <td><i class='fas fa-align-left'></i></i></td>
+        </tr>
+        <tr>
+          <td>Dispositivos Inteligentes</td>
+          <td>Aparatos electrónicos que pueden conectarse, compartir información e interactuar con los usuarios y con otros dispositivos inteligentes, mediante una red LAN. En este laboratorio se simulo una PC, dos laptops y un smartphone</td>
+        </tr>
+        <tr>
+          <td>Router</td>
+          <td>Es un hardware el cual a diferencia del módem permite la conexión de uno o más dispositivos a una red local la cual está a su vez obtiene acceso al internet y estos pueden gestionar el tráfico de la información transmitida entre los dispositivos que se encuentren conectados a la red local los cuales estarán asignados con una dirección ip la cual es diferente en cada dispositivo conectado, hablando de la información transmitida por este dispositivo, este proceso del paso de la información se realiza por paquetes de datos los cuales cuentan con sus secciones/capas de las cuales se pueden identificar: el emisor, tipo de información, y hacia dónde se dirige esta información. <br> Estos son los más utilizados en las empresas hoy en día debido a que permiten una conexión práctica con varios dispositivos de empleados a la vez que se puede gestionar su propia seguridad con el uso de software protegiendo de posible malware y sitios web no deseados para una red local de hogar o compañía.</td>
+        </tr>
+        <tr>
+          <td>Switch</td>
+          <td>Consisten en puntos de acceso a red que se conectan a dispositivos los cuales pueden tener conexión de tipo cable o inalámbrica y se permite el intercambio de información entre varios dispositivos entre sí.</td>
+        </tr>
+        <tr>
+          <td>VLAN</td>
+          <td>Consiste en un conjunto de dispositivos, computadoras o LAN  los cuales son organizados de tal forma que solo haya un dominio de difusión.</td>
+        </tr>
+        <tr>
+          <td>LAN</td>
+          <td>Este apartado ya consiste en un grupo aparte de puertos de conexiones disponibles los cuales pueden favorecer a un único dispositivo o varios.</td>
+        </tr>
+      </table>
+
+      <hr><br>
+
+      <h2>Montaje y configuración</h2>
+
+      <p>Para armar toda topología nosotros seguimos una serie de pasos, lo primero que se hizo fueron las conexiones a cada puerto de los dispositivos indicados en el documento, antes de esto se tenía armado todos los racks para configurar las redes.</p>
+      <h4>1.Configuración de los Switches</h4>
+      <p>Lo primero que se hizo para configurar los switches fue revisar la tabla del documento en donde se indican los parámetros que debía tener cada switch (interfaz, dirección de IP, máscara de subred y el default Gateway), para esto también seguimos una serie de pasos que se indicaron en una lista en clase.</p>
+      <p>Siguiendo la lista indicada en clase le cambiamos el hostname a “sw1,sw2,sw3”, le pusimos una contraseña a cada uno, tanto para entrar a configurar al switch como para entrar al modo “enable”, después de esto configuramos los switches de acuerdo a lo que nos pedía en documento.</p>
+      <p>Switch 1: Al switch 1 le creamos una nueva Vlan con ID 99, a esta Vlan le asignamos la dirección IP que en nuestro caso es 172.23.99.2, con mascara de subred 255.255.255.0, y por ultimo se configuró la dirección del “default Gateway”, que en nuestro caso quedó 172.23.99.1. todo esto se hizo conectando un cable de consola desde la computadora al sw1, los comandos que se usaron fueron los siguientes:</p>
+      <img src="configsw1.png">
+      <p>Para configurar el switch 2 y 3, se hizo exactamente lo mismo, pero cambiando las     direcciones, para el switch 2, las direcciones eran, IP 172.23.99.3 255.255.255.0 y el default Gateway es 172.23.99.1, para el switch 3 la IP 172.23.99.4 255.255.255.0 y el default Gateway 172.23.99.1, se pusieron los mismos comandos una vez conectado el pc a cada switch con el cable de comandos.</p>
+      <h4>2.Configuración de los PCs(direccionamiento red LAN)</h4>
+      <p> Para configurar cada pc se siguieron los parámetros que se dieron en el documento, para esto entramos al pc, en la pestaña de desktop y le damos en IP configuration.</p>
+      <img src="PCconfig.png">
+      <p>Para el pc1: se utilizó la IP 172.23.30.7, con mascara de subred 255.255.255.0 y default Gateway 172.23.30.1 <br> Para el pc2: se utilizó la IP 172.23.15.11, con mascara de subred 255.255.255.0 y default Gateway 172.23.15.1 <br> Para el pc3: se utilizó la IP 172.23.10.16, con mascara de subred 255.255.255.0 y default Gateway 172.23.10.1 <br> Para el pc4: se utilizó la IP 172.23.30.12, con mascara de subred 255.255.255.0 y default Gateway 172.23.30.1 <br> Para el pc5: se utilizó la IP 172.23.15.24, con mascara de subred 255.255.255.0 y default Gateway 172.23.15.1 <br> Para el pc6: se utilizó la IP 172.23.10.17, con mascara de subred 255.255.255.0 y default Gateway 172.23.10.1</p>
+
+      <h4>3.Asignaciones de VLANs</h4>
+
+      <p>Para esto lo primero que definimos es que puertos Fa van a ser de acceso y cuales, de enlaces troncales, para este caso los puertos del 0/1-5 son los troncales que están asignados para el Vlan 99 ya que envían y reciben datos en diferentes direcciones, el resto de los puertos son de acceso. También se crearon diferentes Vlan para diferentes “departamentos”, El Vlan 30 con el nombre de Tecnología, el Vlan 15 con el nombre Marketing y el Vlan 10 con el nombre de Tesorería, para los comandos se usaron:</p>
+      <img src="vlanconfig.png">
+      <p>Repitiendo esto para cada Vlan <br> Los puertos 0/6-9 van asignados al Vlan 30, con un Id. Red de 172.23.30.0/24, asignados a los pc1 y pc4. <br> Los puertos 0/10-12 van asignados al Vlan 15, con un Id. Red de 172.23.15.0/24, asignados a los pc2 y pc5. <br> Los puertos 0/13-24 van asignados al Vlan 10, con un id. Red de 172.23.10.0/24, asignados a los p3 y pc6. <br> Estas asignaciones se hicieron en los 3 switches, con los siguientes comandos: <br> Para el Vlan 99:</p>
+      <img src="vlan99.png">
+      <p>Para el Vlan 30</p>
+      <img src="vlan30.png">
+      <p>Para el Vlan 15</p>
+      <img src="vlan15.png">
+      <p>Para el Vlan 10</p>
+      <img src="vlan10.png">
+      <p>Estos comandos se repitieron para cada switch además de que en cada switch los 3 primeros números son iguales pero el último cambia de acuerdo con el switch, ejemplo, para el switch 1 quedó 172.23.30/15/10.2 con 255.255.255.0, para el switch 2, cambiaría el 2 con un 3 y para el switch 3 cambiaría el 2 por un 4.</p>
+      <h4>4. configuración del router:</h4>
+      <p>Para configurar el router también conectamos un cable consola desde una pc al router, de ahí entramos a la terminal y configuramos el router muy parecido a como lo hacíamos con el switch, le cambiamos el nombre en la consola, como “R1”, y le asignamos una contraseña para entrar, como el router está conectado por la salida de fa 0/1, todo  lo configuramos ahí.</p>
+      <p>Para configurar el fa 0/1, entramos al router y le damos en config, buscamos en la interfaz el puerto Fa 0/1 y lo encendemos, le asignamos la dirección IP de 172.23.99.1 con 255.255.255.0.</p>
+      <img src="routerconfig.png">
+      <p>como tenemos más interfaces (Vlan 30,15,10), creamos unas subinterfaces para las diferentes Vlan, en comandos se hizo lo siguiente: <br> Para la Vlan 10:</p>
+      <img src="subintervlan10.png">
+      <p>Para la Vlan 15:</p>
+      <img src="subintervlan15.png">
+      <p>Para la Vlan 30:</p>
+      <img src="subintervaln30.png">
+      <p>Cada que se creaba la Vlan en los switches comprobamos con el comando “Show Vlan”, para ver que los nombres quedarán asignados y que las Vlans estuvieran activas, además que nos mostraba los puertos asignados a cada Vlan. por ejemplo nos mostraba lo siguiente: </p>
+      <img src="showvlan.png">
+      <p>además de que si dejamos un rato el mouse en cada dispositivo nos arroja la información que este tiene, nos muestra los Vlans activos y la dirección que estas tienen. <br> Al final la topología nos quedó de la siguiente manera:</p>
+      <img src="topologia.png">
+      <p>Donde un paso muy sencillo para comprobar que funciona es dando un comando desde un PC a otro que se llama “ping”, para enviarle un “paquete” a otro computador que esté conectada al mismo “departamento”, un ejemplo de este funcionamiento es el siguiente:</p>
+      <img src="ping.png">
+      lo que nos indica que la Pc1 y la pc 4 están conectadas al mismo departamento. Lo mismo podemos realizar para los otros computadores que estén conectados.
+
+      <hr><br>
+
+      <h2>Resultados de configuración y verificación de  funcionamiento</h2>
+      <h4>Verificación de ip y de interfaz de red de los pcs</h4>
+      <img src="PC1.png">
+      <img src="PC2.png">
+      <img src="PC3.png">
+      <img src="PC4.png">
+      <img src="PC5.png">
+      <img src="PC6.png">
+      <p>Los pcs tienen conectividad esto se comprueba con el comando “ping” ejemplo:</p>
+      <img src="PCping.png">
+      <p>Pero solo tienen conectividad los pcs que estén conectados a la misma Vlan, esto se debe a que el switch está configurado para mandar la información de acuerdo a las Vlans de los dispositivos, por ejemplo si la Vlan es 30, el switch sabe que tiene que enviar la información a los dispositivos con la direccion “172.23.30.0”.</p>
+      <p>Para verificar el protocolo STP, se utiliza el comando “show spanning-tree”, esto mostrará la información de configuración del STP, incluyendo el switch asignado como puente raíz, Para determinar qué switch ha sido asignado como puente raíz, en la línea que comienza con "Root ID". El switch que tenga el ID de puente más bajo será el puente raíz, en nuestro caso será el switch 2.</p>
+      <img src="showstp.png">
+      <img src="interface1.png">
+      <img src="interface2.png">
+      <p>Para realizar un telnet, se hace con el comando “telnet dirección IP del dispositivo”, en nuestro caso los resultados fueron los siguientes.</p>
+      <img src="telnet.png">
+      <p>Cuando se intenta realizar la conexión de un pc a otro que estén en diferentes Vlans se muestra lo siguiente:</p>
+      <img src="dvlan.png">
+      <p>Como se explicaba anteriormente, los switches están configurados para que encapsula y mande la información de acuerdo a la dirección y a la Vlan asignada, como ver en la simulación:</p>
+      <img src="STP.png">
+      <p>el switch es el encargado de verificar a donde voy a enviar el paquete, por lo tanto el mira la dirección y ve que es por ejemplo “172.23.30….”, entonces sabe que el paquete se enviará a los dispositivos pertenecientes a la Vlan 30.</p>
+      <hr><br>
+      <h4>Desafíos</h4>
+      <p>En este escenario, algunas operaciones pueden ser más difíciles que otras. Por ejemplo, configurar enlaces troncales 802.1q o configurar las subredes y las subinterfaces pueden requerir una comprensión más detallada de la configuración de la red. </p>
+
+      <hr><br>
+      <h2>Conclusiones</h2>
+      <p>En conclusión esta práctica nos ha ayudado a reforzar nuestro conocimiento y lo que hemos aprendido en clase ya que estos pasos se hicieron como práctica en ejercicios en clase, aprendimos en general el cómo conectar los racks, como hacer un panel de interconexiones y como conectar los switches y en general los dispositivos de acuerdo a la topología presentada en el documento. <br> Al utilizar VLANs, hemos logrado separar el tráfico de red en diferentes subredes lógicas, lo que mejora la seguridad y el rendimiento de la red. Además, hemos establecido una comunicación entre las VLANs mediante el enrutador, lo que permite que los dispositivos en diferentes VLANs se comuniquen entre sí. En cuanto a la configuración en sí, hemos utilizado Cisco Packet Tracer para simular la red y hemos configurado los dispositivos mediante la interfaz gráfica y mediante comandos. <br> En resumen, en este escenario hemos configurado un router con tres subinterfaces de FastEthernet, cada una asignada a una VLAN diferente y con su propia dirección IP. Además, hemos configurado en los switches los puertos correspondientes a cada VLAN y establecido enlaces troncales 802.1q para permitir el tráfico de VLAN entre los switches y el router.</p>
+    <footer class="footer">
+      <h2>Referencias:</h2>
+      <p>[3] Carly Burdova  ¿Qué es un router y cuál es su función?, (Agosto 19, 2022), Accedido el 17 de febrero de 2023. Recuperado de https://www.avg.com/es/signal/what-is-a-router</p>
+      <p></p>
+
+      
+    </footer>  
+      
+  </div>
+</body>
+
+</html>
